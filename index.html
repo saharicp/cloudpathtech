@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloudpathtech — Data, AI & Business Intelligence Consulting</title>
+<meta name="description" content="Cloudpathtech guides teams from scattered data to governed, AI-ready decision-making — data engineering, applied AI, and business intelligence consulting on Tableau and the cloud.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1A2B'/%3E%3Cpath d='M4 23C9 23 11 11 16 11S23 23 28 23' stroke='%23E2A445' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='4' cy='23' r='2.4' fill='%230F1A2B' stroke='%23E2A445' stroke-width='1.6'/%3E%3Ccircle cx='28' cy='23' r='2.4' fill='%230F1A2B' stroke='%23E2A445' stroke-width='1.6'/%3E%3Cpath d='M16 4.5L17.4 7.6L20.5 9L17.4 10.4L16 13.5L14.6 10.4L11.5 9L14.6 7.6L16 4.5Z' fill='%234FC7B0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1A2B;
+    --bg-panel:#152239;
+    --bg-panel-2:#1B2B46;
+    --gold:#E2A445;
+    --gold-dim:#8A6A38;
+    --teal:#4FC7B0;
+    --text-primary:#EEF2F8;
+    --text-secondary:#93A6C2;
+    --text-muted:#5E7092;
+    --border:rgba(255,255,255,0.09);
+    --serif-none:0;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0;font-weight:600;letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(15,26,43,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:600;}
+  .logo-mark{width:22px;height:22px;flex:none;}
+  nav ul{list-style:none;display:flex;gap:32px;margin:0;padding:0;}
+  nav ul a{font-size:14px;color:var(--text-secondary);text-decoration:none;transition:color .2s;}
+  nav ul a:hover{color:var(--text-primary);}
+  .nav-cta{
+    font-size:14px;font-weight:500;color:var(--bg);
+    background:var(--gold);padding:9px 18px;border-radius:6px;
+    text-decoration:none;white-space:nowrap;
+    transition:opacity .2s;
+  }
+  .nav-cta:hover{opacity:0.88;}
+  @media (max-width:760px){ nav ul{display:none;} }
+
+  /* HERO */
+  .hero{padding:88px 0 40px;position:relative;overflow:hidden;}
+  .eyebrow{
+    font-size:13px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;margin-bottom:24px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--gold);}
+  .hero h1{font-size:clamp(34px,5vw,58px);line-height:1.08;max-width:820px;}
+  .hero h1 em{font-style:normal;color:var(--gold);}
+  .hero p.lede{
+    margin-top:24px;font-size:18px;color:var(--text-secondary);max-width:560px;
+  }
+  .hero-actions{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold);color:var(--bg);font-weight:500;font-size:15px;
+    padding:13px 26px;border-radius:6px;text-decoration:none;transition:opacity .2s;
+  }
+  .btn-primary:hover{opacity:.88;}
+  .btn-ghost{
+    border:1px solid var(--border);color:var(--text-primary);font-weight:500;font-size:15px;
+    padding:12px 25px;border-radius:6px;text-decoration:none;transition:border-color .2s;
+  }
+  .btn-ghost:hover{border-color:var(--text-secondary);}
+
+  /* PATH SIGNATURE */
+  .path-wrap{margin-top:64px;position:relative;}
+  .path-wrap svg{width:100%;height:auto;display:block;}
+  .path-line{
+    fill:none;stroke:var(--gold);stroke-width:2;stroke-linecap:round;
+    stroke-dasharray:1400;stroke-dashoffset:1400;
+    animation:draw 2.2s ease forwards .3s;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  .path-node circle{fill:var(--bg-panel-2);stroke:var(--gold);stroke-width:2;}
+  .path-node .dot{fill:var(--gold);}
+  .path-label{font-family:'IBM Plex Mono',monospace;font-size:13px;fill:var(--text-primary);}
+  .path-sub{font-family:'Inter',sans-serif;font-size:11.5px;fill:var(--text-muted);}
+  @media (max-width:760px){
+    .path-wrap{overflow-x:auto;}
+    .path-wrap svg{width:640px;}
+  }
+
+  section{padding:96px 0;border-top:1px solid var(--border);}
+  .section-head{max-width:560px;margin-bottom:56px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,36px);}
+  .section-head p{color:var(--text-secondary);margin-top:14px;font-size:16px;}
+
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+  .service-card{background:var(--bg-panel);padding:32px;}
+  .service-num{font-family:'IBM Plex Mono',monospace;color:var(--gold-dim);font-size:13px;margin-bottom:16px;display:block;}
+  .service-card h3{font-size:19px;margin-bottom:10px;}
+  .service-card p{color:var(--text-secondary);font-size:14.5px;margin:0;}
+  @media (max-width:760px){.services-grid{grid-template-columns:1fr;}}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:start;}
+  .about-grid p{color:var(--text-secondary);font-size:16px;margin:0 0 18px;}
+  .cred-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;}
+  .cred-list li{
+    display:flex;justify-content:space-between;gap:16px;
+    padding:16px 0;border-bottom:1px solid var(--border);
+    font-size:14px;
+  }
+  .cred-list li:first-child{padding-top:0;}
+  .cred-list .cred-name{color:var(--text-primary);}
+  .cred-list .cred-tag{color:var(--text-muted);font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;}
+  @media (max-width:760px){.about-grid{grid-template-columns:1fr;gap:40px;}}
+
+  /* CONTACT */
+  .contact-panel{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:12px;
+    padding:56px;display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;
+  }
+  .contact-panel h2{font-size:clamp(24px,3vw,32px);max-width:420px;}
+  .contact-email{
+    font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--gold);
+    text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:2px;
+  }
+
+  footer{border-top:1px solid var(--border);padding:32px 0;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--text-muted);flex-wrap:wrap;gap:12px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 32 32" fill="none">
+        <path d="M4 23C9 23 11 11 16 11S23 23 28 23" stroke="#E2A445" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="4" cy="23" r="2.4" fill="#0F1A2B" stroke="#E2A445" stroke-width="1.6"/>
+        <circle cx="28" cy="23" r="2.4" fill="#0F1A2B" stroke="#E2A445" stroke-width="1.6"/>
+        <path d="M16 4.5L17.4 7.6L20.5 9L17.4 10.4L16 13.5L14.6 10.4L11.5 9L14.6 7.6L16 4.5Z" fill="#4FC7B0"/>
+      </svg>
+      Cloudpathtech
+    </div>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Start a project</a>
+  </nav>
+</header>
+
+<section class="hero" style="border-top:none;">
+  <div class="wrap">
+    <div class="eyebrow">Data, AI & business intelligence consulting</div>
+    <h1>Every data and AI initiative<br>has a <em>path</em> through it.</h1>
+    <p class="lede">Cloudpathtech helps teams turn scattered spreadsheets and one-off dashboards into governed, AI-ready decision-making — built on solid data pipelines, applied AI, and business intelligence people actually trust.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#contact">Start a project</a>
+      <a class="btn-ghost" href="#services">See what we do</a>
+    </div>
+
+    <div class="path-wrap">
+      <svg viewBox="0 0 960 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Four-stage engagement path: assess, model, build, scale">
+        <path class="path-line" d="M40,120 C 180,120 220,40 340,40 S 500,130 620,130 S 780,40 920,40"/>
+        <g class="path-node"><circle cx="40" cy="120" r="6"/><circle class="dot" cx="40" cy="120" r="2.4"/></g>
+        <text class="path-label" x="40" y="150" text-anchor="start">Assess</text>
+        <text class="path-sub" x="40" y="18" text-anchor="start">01</text>
+
+        <g class="path-node"><circle cx="340" cy="40" r="6"/><circle class="dot" cx="340" cy="40" r="2.4"/></g>
+        <text class="path-label" x="340" y="70" text-anchor="middle">Model</text>
+        <text class="path-sub" x="340" y="18" text-anchor="middle">02</text>
+
+        <g class="path-node"><circle cx="620" cy="130" r="6"/><circle class="dot" cx="620" cy="130" r="2.4"/></g>
+        <text class="path-label" x="620" y="152" text-anchor="middle">Build</text>
+
+        <g class="path-node"><circle cx="920" cy="40" r="6"/><circle class="dot" cx="920" cy="40" r="2.4"/></g>
+        <text class="path-label" x="920" y="70" text-anchor="end">Scale</text>
+        <text class="path-sub" x="920" y="18" text-anchor="end">04</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">What we do</div>
+      <h2>Data, AI, and BI — as one connected practice</h2>
+      <p>Most organizations treat data engineering, AI, and BI as separate teams with separate roadmaps. We work the whole chain, so what's built downstream actually reflects what's happening upstream.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-num">01 · Data engineering & cloud</span>
+        <h3>Pipelines built to run quietly</h3>
+        <p>Ingestion, orchestration, and warehouse design on GCP and modern cloud stacks — sized for the data volume you actually have, not a hypothetical one.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">02 · AI & applied machine learning</span>
+        <h3>AI grounded in your real data</h3>
+        <p>Predictive models, LLM-powered analytics, and AI-assisted reporting layered on top of a clean data foundation — not a demo bolted onto messy data.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">03 · Business intelligence & Tableau</span>
+        <h3>Governed, self-service BI</h3>
+        <p>Tableau Cloud architecture, Pulse metric design, licensing and content governance, and dashboards people actually open and trust.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">04 · Analytics engineering</span>
+        <h3>The semantic layer that ties it together</h3>
+        <p>dbt-based transformation and metric definitions so a number means the same thing in a dashboard, a model, and an executive meeting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">How we work</div>
+      <h2>The same four stops, every time</h2>
+      <p>The path in the hero above isn't decoration — it's the actual shape of an engagement, from raw data to AI-ready decisions.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-num">Assess</span>
+        <h3>See the whole landscape</h3>
+        <p>Audit existing data sources, dashboards, and AI ambitions to find where trust in the numbers — or the models — is breaking down.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">Model</span>
+        <h3>Design before you build</h3>
+        <p>Define the metrics, entities, and architecture on paper first, so pipelines, dashboards, and any AI layer share one source of truth.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">Build</span>
+        <h3>Ship the pipeline, the view, the model</h3>
+        <p>Implement the data pipelines, dashboards, and AI/ML components together, so what's modeled and what's shown never drift apart.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">Scale</span>
+        <h3>Hand it off, then watch adoption</h3>
+        <p>Train the team, document the system, and track real usage so the platform keeps earning trust after we leave.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow">About Cloudpathtech</div>
+        <h2 style="margin-bottom:20px;">11+ years turning messy data into decisions people trust</h2>
+        <p>Cloudpathtech is an independent data, AI, and business intelligence consultancy built around one belief: most BI and AI problems aren't tooling problems, they're clarity problems. We've spent over a decade inside enterprise data engineering, analytics engineering, and BI teams — including large-scale Tableau Cloud programs for financial services clients — and bring that experience to teams that need senior-level judgment without a full-time hire.</p>
+        <p>Engagements are hands-on and scoped tightly: a Tableau Cloud rollout, an AI-assisted reporting layer, a dbt transformation model, or a cloud data pipeline migration to get a project unstuck.</p>
+      </div>
+      <div>
+        <ul class="cred-list">
+          <li><span class="cred-name">Tableau Desktop Certified Professional</span><span class="cred-tag">Tableau</span></li>
+          <li><span class="cred-name">Tableau Data Monarch</span><span class="cred-tag">Tableau</span></li>
+          <li><span class="cred-name">Certified Data Engineer</span><span class="cred-tag">Google Cloud</span></li>
+          <li><span class="cred-name">Certified dbt Developer</span><span class="cred-tag">dbt Labs</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <h2>Have a data or BI problem worth mapping out?</h2>
+      <a class="contact-email" href="mailto:info@cloudpathtech.com">info@cloudpathtech.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Cloudpathtech</span>
+    <span class="mono">Cloud Path LLC</span>
+  </div>
+</footer>
+
+</body>
+</html>
